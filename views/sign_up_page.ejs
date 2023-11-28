@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up Page</title>
+</head>
+<style>
+    body{
+        font-family: Arial, Helvetica, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    h2 {
+        text-align: center;
+
+    }
+    form {
+        min-width: 350px;
+        width: 100%;
+    }
+    input {
+        display: block;
+        width: 100%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border-radius: 0%;
+        height: 50px;
+    }
+    .err {
+        color: crimson;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    button {
+        width: 100%;
+        height: 50px;
+        background-color: #04AA6D;
+        color: whitesmoke;
+    }
+    button:hover {
+        background-color: gray;
+        color: whitesmoke;
+    }
+    a {
+        text-decoration: none;
+    }
+    a:visited {
+        color: blue;
+    }
+    a:hover {
+        color: #04AA6D;
+    }
+    .success {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        background-color: goldenrod;
+        color: whitesmoke;
+    }
+</style>
+<body>
+    <%
+    if (typeof params === 'undefined') params = {};
+    if (typeof err === 'undefined') err = {};
+    if (typeof status === 'undefined') status = '';
+    function showErr(message) {
+    if (message !== undefined && message !== '') {
+        return `${message}`;
+    } else {
+        return '';
+    }
+    }
+    %>
+    <form action="/signup" method="post">
+        <h2>Sign up an Email</h2>
+        <%- status %>
+        <div>
+            <label for="email"><b>Email</b></label>
+            <input type="email" name="email" id="email" value="<%= params.email %>" placeholder="Enter Your Email">
+            <p class="err"><%= showErr(err['email-existed']) %></p>
+            <p class="err"><%= showErr(err['password']) %></p>
+            <label for="password"><b>Password</b></label>
+            <input type="password" name="password" id="password" value="<%= params.password %>" placeholder="Enter your Password">
+            <p class="err"><%= showErr(err['password']) %></p>
+            <p class="err"><%= showErr(err['short-password']) %></p>
+            <label for="repassword"><b>Re-Enter Password</b></label>
+            <input type="password" name="repassword" id="repassword" value="<%= params.repassword %>" placeholder="Enter your Password Again">
+            <p class="err"><%= showErr(err['repassword']) %></p>
+            <p class="err"><%= showErr(err['password-not-match']) %></p>
+            <label for="fullname"><b>Full Name</b></label>
+            <input type="text" name="fullname" id="fullname" value="<%= params.fullname %>" placeholder="Enter Your Full Name">
+            <p class="err"><%= showErr(err['fullname']) %></p>
+            <button type="submit">Sign-up</button>
+            <p>Already singed up? <a href="/">Log in</a></p>
+        </div>
+    </form>
+</body>
+</html>
